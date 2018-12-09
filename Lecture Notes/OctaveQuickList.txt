@@ -1,0 +1,41 @@
+Octave:
+
+check current directory: pwd
+change current directory: cd 'currentDir'
+stop Octave from running: ctrl + c
+
+data = load('ex1data1.txt');
+X = data(:, 1); y = data(:,2);
+m = length(y);
+X = [ones(m, 1), data(:,1)]; %Add a column of ones to x
+theta = zeros(2, 1); % initialize fitting parameters
+iterations = 1500;
+alpha = 0.01;
+
+Linear regression with n parameters:
+for iter = 1:iterations
+error = X * theta - y;
+theta = theta - alpha * X' * error / m;
+J_history(iter) = computeCost(X, y, theta);
+end;
+
+Logistic (Sigmoid) function/ regression vectorized implementation of theta (parameters) update:
+theta := theta - (alpha/m)*X'*(g(X*theta) - y),
+where theta is the updated parameters vector (to the left of the equals sign),
+theta is the current parameters vector (to the right of the equals sign),
+alpha is the learning rate,
+m is the count of the training sample,
+X' - the transpose of the input data (transposed matrix of independent variables),
+g(X*theta) - the predicted value of y given the input data X and the current parameters (theta vector) of our hypothesis function,
+y - the real classification (1 or 0)/ dependent variable;
+
+Cost function of Logistic regression:
+J(theta) = - (1/m)*Riemann sum(y*log(h(x)) + (1-y)*log(1 - h(x)))
+Cost function (vectorized implementation):
+h = g(X*theta);
+J(theta) = (1/m)*(-y'*log(h)-(1-y)'*log(1-h)),
+where J - cost function,
+theta - parameters vector,
+m - number of observations in the training sample,
+y - the vector of dependent variable's observations,
+h - our hypothesis given input data (X) and parameters (theta),
