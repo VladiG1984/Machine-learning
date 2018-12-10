@@ -39,7 +39,15 @@ error_val = zeros(length(lambda_vec), 1);
 %
 %
 
+for i = 1:length(lambda_vec)
 
+  theta = trainLinearReg(X, y, lambda_vec(i));
+  error_train(i) = linearRegCostFunction(X, y, theta, 0);% lambda is set to zero for estimating the error of
+                                                         % the model because we have already used it to fit theta (to find the best values for theta) 
+  error_val(i) = linearRegCostFunction(Xval, yval, theta, 0); % lambda is set to zero for estimating the error of the model on the cross validation set because
+															  % we have already used it to fit theta (to find the best values for theta)
+
+end
 
 
 
