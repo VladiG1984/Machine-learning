@@ -52,12 +52,18 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-
-
-
-
-
-
+for i = 1:m
+  % Train you sub-sample using lambda and my previously created linear regression cost function; both incorporated into
+  % the trainLinearReg function
+  X_sub = X(1:i, :);
+  y_sub = y(1:i);
+  
+  theta_sub = trainLinearReg(X_sub, y_sub, lambda);
+  error_train(i) = linearRegCostFunction(X_sub, y_sub, theta_sub, 0); % lambda is set to zero for estimating the error of
+                                                                   % the model developed only on the training sub-sample
+  error_val(i) = linearRegCostFunction(Xval, yval, theta_sub, 0); % lambda is set to zero for estimating the error
+  
+end
 
 % -------------------------------------------------------------
 
